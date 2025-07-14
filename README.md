@@ -11,11 +11,16 @@ This project provides a prototype analytics dashboard with a FastAPI backend and
    ```
 ### Environment Variables
 
-1. Copy the sample environment file:
+1. Copy the sample environment file. From inside `backend` use:
 
    ```bash
-   cp .env.sample .env
+   cp ../.env.sample .env
    ```
+
+   (Or run `cp .env.sample .env` from the project root.)
+
+   The backend uses `python-dotenv` to automatically load variables from this
+   `.env` file when `backend/DB/connector.py` imports `load_dotenv()`.
 
 2. Edit `.env` and provide values for:
 
