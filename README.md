@@ -2,7 +2,14 @@
 
 This project provides a prototype analytics dashboard with a FastAPI backend and a React (Vite) frontend. The backend exposes several API endpoints for dashboard metrics while the frontend renders charts and tables using those APIs.
 
-## Environment Variables
+## Backend Setup
+
+### 1. Install dependencies:
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   ```
+### Environment Variables
 
 1. Copy the sample environment file:
 
@@ -17,23 +24,8 @@ This project provides a prototype analytics dashboard with a FastAPI backend and
    - `DB_HOST`
    - `DB_PORT`
    - `DB_NAME`
-
-## Backend Setup
-
-1. Install dependencies:
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   ```
-2. Create a `.env` file in `backend/` containing your database settings:
-   ```bash
-   DB_USER=<username>
-   DB_PASSWORD=<password>
-   DB_HOST=<host>
-   DB_PORT=<port>
-   DB_NAME=<database>
-   ```
-3. Start the API server:
+     
+### Start the API server:
    ```bash
    uvicorn main:app --reload --port 8001
    ```
