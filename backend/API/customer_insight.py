@@ -18,7 +18,7 @@ router = APIRouter()
 def customer_insights(
     filter_type: str = Query(
         "YTD",
-        regex="^(Today|Yesterday|Daily|Weekly|MTD|Monthly|YTD|custom)$",
+        pattern="^(Today|Yesterday|Daily|Weekly|MTD|Monthly|YTD|custom)$",
         description="Predefined time filter"
     ),
     start: date = Query(

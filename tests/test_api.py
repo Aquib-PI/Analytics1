@@ -13,10 +13,10 @@ os.environ.setdefault('DB_PORT', '5432')
 os.environ.setdefault('DB_NAME', 'test')
 
 import main
-import API.API_Dashboard as api_dashboard
+import API.api_dashboard as api_dashboard
 import API.financial_analysis_service as financial_api
 import API.operational_ef as operational_api
-import API.DemoGraphic as demographic_api
+import API.demographic as demographic_api
 import API.risk_and_fraud_management as risk_api
 import API.customer_insight as customer_api
 
