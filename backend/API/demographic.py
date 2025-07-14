@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from KPI.DemoGraphic import get_demo_kpi_data
+from KPI.demographic import get_demo_kpi_data
 from fastapi import Query
 from datetime import date
 from typing import Optional, Tuple

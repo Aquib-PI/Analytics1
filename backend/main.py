@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from API.API_Dashboard import router as dashboard_router
+from API.api_dashboard import router as dashboard_router
 from API.financial_analysis_service import router as financial_analysis_router
 from API.operational_ef import router as operational_efficiency_router
-from API.DemoGraphic import router as demographic_router
+from API.demographic import router as demographic_router
 from API.risk_and_fraud_management import router as risk_and_fraud_router
 from API.customer_insight import router as customer_insight_router
 

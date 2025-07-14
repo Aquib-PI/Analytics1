@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from KPI.KPI_Dashboard import fetch_dashboard_data
+from KPI.kpi_dashboard import fetch_dashboard_data
 
 router = APIRouter()
 
