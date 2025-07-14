@@ -1,3 +1,7 @@
+# Analytics Dashboard
+
+This project provides a prototype analytics dashboard with a FastAPI backend and a React (Vite) frontend. The backend exposes several API endpoints for dashboard metrics while the frontend renders charts and tables using those APIs.
+
 ## Environment Variables
 
 1. Copy the sample environment file:
@@ -13,11 +17,6 @@
    - `DB_HOST`
    - `DB_PORT`
    - `DB_NAME`
-
-=======
-# Analytics Dashboard
-
-This project provides a prototype analytics dashboard with a FastAPI backend and a React (Vite) frontend. The backend exposes several API endpoints for dashboard metrics while the frontend renders charts and tables using those APIs.
 
 ## Backend Setup
 
