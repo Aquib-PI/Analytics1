@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import ReactECharts from 'echarts-for-react'
+import { API_BASE_URL } from '../config.js'
 import * as echarts from 'echarts'
 import usaJson from '../usa.json'
 
@@ -29,7 +30,7 @@ export default function Demographic() {
         params.start = customStart
         params.end = customEnd
       }
-      const res = await axios.get('http://localhost:8001/api/demographic', { params })
+      const res = await axios.get(`${API_BASE_URL}/api/demographic`, { params })
       setMetrics(res.data.metrics || [])
       setCharts(res.data.charts || [])
     } catch (err) {

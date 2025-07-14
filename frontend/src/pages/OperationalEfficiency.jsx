@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import ReactECharts from 'echarts-for-react'
+import { API_BASE_URL } from '../config.js'
 
 const filterOptions = ['YTD', 'MTD', 'Weekly', 'Daily', 'Monthly', 'Yesterday', 'Today', 'custom']
 
@@ -24,7 +25,7 @@ export default function OperationalEfficiency() {
         params.end = end
       }
 
-      const res = await axios.get('http://localhost:8001/api/operational-efficiency', { params })
+      const res = await axios.get(`${API_BASE_URL}/api/operational-efficiency`, { params })
       setData(res.data)
     } catch (err) {
       console.error('Error fetching operational efficiency data:', err)
