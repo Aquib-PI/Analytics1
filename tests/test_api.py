@@ -1,65 +1,69 @@
-import os
-import sys
+# tests/test_api.py
+import os, sys, pytest
 from fastapi.testclient import TestClient
 
-# Ensure backend modules can be imported
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'backend'))
+# 1) Make sure "backend" folder is on PYTHONPATH, so you can import main
+root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, root)
+sys.path.insert(0, os.path.join(root, "backend"))
 
-# Provide dummy DB connection details so modules import without error
-os.environ.setdefault('DB_USER', 'user')
-os.environ.setdefault('DB_PASSWORD', 'pass')
-os.environ.setdefault('DB_HOST', 'localhost')
-os.environ.setdefault('DB_PORT', '5432')
-os.environ.setdefault('DB_NAME', 'test')
+# 2) import app
+from backend.main import app
 
-import main
-import API.api_dashboard as api_dashboard
-import API.financial_analysis_service as financial_api
-import API.operational_ef as operational_api
-import API.demographic as demographic_api
-import API.risk_and_fraud_management as risk_api
-import API.customer_insight as customer_api
+# 3) import the modules under the same name main.py used:
+import API.api_dashboard      as api_dashboard # type: ignore
+import API.financial_analysis_service as financial_api # type: ignore
+import API.operational_ef    as operational_api # type: ignore
+import API.demographic       as demographic_api # type: ignore
+import API.risk_and_fraud_management as risk_api # type: ignore
+import API.customer_insight  as customer_api # type: ignore
 
-client = TestClient(main.app)
+@pytest.fixture(autouse=True)
+def mock_all_kpis(monkeypatch):
+    dummy = lambda *args, **kwargs: {"metrics": [], "charts": []}
 
+    # patch the modules FastAPI actually has wired up:
+    monkeypatch.setattr(api_dashboard,      "fetch_dashboard_data",           dummy)
+    monkeypatch.setattr(financial_api,      "get_financial_performance_data",  dummy)
+    monkeypatch.setattr(operational_api,    "get_operational_efficiency_data", dummy)
+    monkeypatch.setattr(demographic_api,    "get_demo_kpi_data",               dummy)
+    monkeypatch.setattr(risk_api,           "get_risk_and_fraud_data",         dummy)
+    monkeypatch.setattr(customer_api,       "get_customer_insights_data",      dummy)
 
-def test_dashboard(monkeypatch):
-    monkeypatch.setattr(api_dashboard, 'fetch_dashboard_data', lambda: {'metrics': [], 'charts': []})
-    resp = client.get('/api/dashboard')
+@pytest.fixture
+def client():
+    return TestClient(app)
+
+def test_dashboard(client):
+    r = client.get("/api/dashboard")
+    assert r.status_code == 200
+    assert r.json() == {"metrics": [], "charts": []}
+
+def test_financial_performance(client):
+    resp = client.get("/api/financial-performance")
     assert resp.status_code == 200
-    assert resp.json() == {'metrics': [], 'charts': []}
+    assert resp.json() == {"metrics": [], "charts": []}
 
 
-def test_financial_performance(monkeypatch):
-    monkeypatch.setattr(financial_api, 'get_financial_performance_data', lambda ft, c: {'metrics': [], 'charts': []})
-    resp = client.get('/api/financial-performance')
+def test_operational_efficiency(client):
+    resp = client.get("/api/operational-efficiency")
     assert resp.status_code == 200
-    assert resp.json() == {'metrics': [], 'charts': []}
+    assert resp.json() == {"metrics": [], "charts": []}
 
 
-def test_operational_efficiency(monkeypatch):
-    monkeypatch.setattr(operational_api, 'get_operational_efficiency_data', lambda ft, c: {'metrics': [], 'charts': []})
-    resp = client.get('/api/operational-efficiency')
+def test_demographic(client):
+    resp = client.get("/api/demographic")
     assert resp.status_code == 200
-    assert resp.json() == {'metrics': [], 'charts': []}
+    assert resp.json() == {"metrics": [], "charts": []}
 
 
-def test_demographic(monkeypatch):
-    monkeypatch.setattr(demographic_api, 'get_demo_kpi_data', lambda ft, c: {'metrics': [], 'charts': []})
-    resp = client.get('/api/demographic')
+def test_risk_and_fraud(client):
+    resp = client.get("/api/risk-and-fraud")
     assert resp.status_code == 200
-    assert resp.json() == {'metrics': [], 'charts': []}
+    assert resp.json() == {"metrics": [], "charts": []}
 
 
-def test_risk_and_fraud(monkeypatch):
-    monkeypatch.setattr(risk_api, 'get_risk_and_fraud_data', lambda ft, c: {'metrics': [], 'charts': []})
-    resp = client.get('/api/risk-and-fraud')
+def test_customer_insights(client):
+    resp = client.get("/api/customer-insights")
     assert resp.status_code == 200
-    assert resp.json() == {'metrics': [], 'charts': []}
-
-
-def test_customer_insights(monkeypatch):
-    monkeypatch.setattr(customer_api, 'get_customer_insights_data', lambda ft, c: {'metrics': [], 'charts': []})
-    resp = client.get('/api/customer-insights')
-    assert resp.status_code == 200
-    assert resp.json() == {'metrics': [], 'charts': []}
+    assert resp.json() == {"metrics": [], "charts": []}

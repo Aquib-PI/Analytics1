@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from sqlalchemy import text
 from DB.connector import get_engine
 
@@ -129,7 +129,7 @@ def fetch_dashboard_data() -> dict:
         })
 
         # 5) Recent Activity (List)
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
         activity = [
             {"time": (now - timedelta(minutes=2)).isoformat(), "type": "alert",       "message": "Transaction volume spike detected"},
             {"time": (now - timedelta(hours=1)).isoformat(),   "type": "report",      "message": "Weekly performance report generated"},
