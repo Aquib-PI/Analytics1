@@ -1,17 +1,46 @@
-# Analytics
+# Analytics Dashboard
 
-## Frontend Configuration
+This project provides a prototype analytics dashboard with a FastAPI backend and a React (Vite) frontend. The backend exposes several API endpoints for dashboard metrics while the frontend renders charts and tables using those APIs.
 
-The frontend expects an API base URL defined via the `VITE_API_BASE_URL` environment variable. Create a `.env` file inside the `frontend` directory during development:
+## Backend Setup
 
-```bash
-VITE_API_BASE_URL=http://localhost:8001
-```
+1. Install dependencies:
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   ```
+2. Create a `.env` file in `backend/` containing your database settings:
+   ```bash
+   DB_USER=<username>
+   DB_PASSWORD=<password>
+   DB_HOST=<host>
+   DB_PORT=<port>
+   DB_NAME=<database>
+   ```
+3. Start the API server:
+   ```bash
+   uvicorn main:app --reload --port 8001
+   ```
+   The frontend expects the API at `http://localhost:8001`.
 
-For production builds, set the variable when running `npm run build`:
+## Frontend Setup
 
-```bash
-VITE_API_BASE_URL=https://your-domain.example.com npm run build
-```
+1. Install dependencies:
+   ```bash
+   cd frontend
+   npm install
+   ```
+2. Launch the development server:
+   ```bash
+   npm run dev
+   ```
+   The app will be available at `http://localhost:5173`.
+3. Build for production:
+   ```bash
+   npm run build
+   npm run preview # optional preview of the built site
+   ```
 
-If no value is specified, the code falls back to `http://localhost:8001`.
+## Running the Application
+
+Run the backend and frontend commands in separate terminals. Once both are running, open `http://localhost:5173` in your browser to access the dashboard.
