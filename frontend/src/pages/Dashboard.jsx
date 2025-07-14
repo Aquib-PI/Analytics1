@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import ReactECharts from 'echarts-for-react'
+import { API_BASE_URL } from '../config.js'
 
 export default function Dashboard() {
   const [data, setData]       = useState(() => {
@@ -11,7 +12,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('http://localhost:8001/api/dashboard')
+    axios.get(`${API_BASE_URL}/api/dashboard`)
       .then(res => {
         setData(res.data)
         localStorage.setItem('dashboard_data', JSON.stringify(res.data))
