@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactECharts from 'echarts-for-react';
+import { API_BASE_URL } from '../config.js';
 
 const FILTER_OPTIONS = [
   'YTD', 'MTD', 'Weekly', 'Daily', 'Monthly', 'Yesterday', 'Today', 'custom'
@@ -26,7 +27,7 @@ export default function Customer_Insight() {
         params.end   = end;
       }
 
-      const res = await axios.get('http://localhost:8001/api/customer-insights', { params });
+      const res = await axios.get(`${API_BASE_URL}/api/customer-insights`, { params });
       setData(res.data);
     } catch (err) {
       console.error('Error fetching customer insights data:', err);
