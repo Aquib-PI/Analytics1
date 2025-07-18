@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from sqlalchemy import text
 from DB.connector import get_engine
 from KPI.utils.time_utils import get_date_ranges, fetch_one, pct_diff
@@ -9,7 +9,7 @@ MERCHANT_ID = 26  # Adjust as needed
 
 def get_customer_insights_data(
     filter_type: str = 'YTD',
-    custom: Optional[Tuple[date, date]] = None
+    custom: Optional[Tuple[datetime, datetime]] = None
 ) -> dict:
     """
     Returns customer‐insights metrics and charts based on the selected date range filter.

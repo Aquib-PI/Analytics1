@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from sqlalchemy import text
 from DB.connector import get_engine
 from KPI.utils.time_utils import get_date_ranges, pct_diff, fetch_one
@@ -7,7 +7,7 @@ from typing import Optional, Tuple
 engine = get_engine()
 
 def get_financial_performance_data(filter_type: str = 'YTD',
-                                   custom: Optional[Tuple[date, date]] = None) -> dict:
+                                   custom: Optional[Tuple[datetime, datetime]] = None) -> dict:
     """
     Returns financial KPI metrics and chart data (live_transactions) based on the selected date range filter.
     """

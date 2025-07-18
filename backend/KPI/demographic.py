@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from sqlalchemy import text
 from DB.connector import get_engine
 from KPI.utils.time_utils import get_date_ranges, fetch_one
@@ -9,7 +9,7 @@ MERCHANT_ID = 26  # Hardcoded merchant ID
 
 def get_demo_kpi_data(
     filter_type: str = "YTD",
-    custom: Optional[Tuple[date, date]] = None
+    custom: Optional[Tuple[datetime, datetime]] = None
 ) -> dict:
     """
     Returns demographic KPI metrics and chart data based on the selected date range filter.
